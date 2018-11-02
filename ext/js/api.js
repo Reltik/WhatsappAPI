@@ -175,6 +175,7 @@
 			{
 				predicate: msg => msg.__x_isUserCreatedType && !msg.__x_isNotification && !msg.__x_isSentByMe,
 				handler: function(msg) {
+					debugger;
 					var sender = msg.__x_sender;
 					var chat = msg.__x_from;
 					var message = msg.__x_id._serialized;
@@ -495,7 +496,11 @@
 		*/
 		getContactList: function() {
 			var result = [];
-			Store.Contact.models.forEach(x => { result.push(x.__x_id); });
+			Store.Contact.models.forEach(x => { result.push({
+				...x.__x_id,
+				isWAContact: x.__x_isWAContact,
+				name: x.__x_name
+			}); });
 			return result;
 		},
 		
